@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <title>Little Lemon</title>
+
+    <meta property="og:title" content="Our Menu">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="logo.png">
+    <meta property="og:url" content="https://littlelemon/">
+    <meta property="og:description"
+        content="Little Lemon is a family-owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Little Lemon">
+
+    <link rel="stylesheet" href="style_limon.css">
+    </head>
+
+    <body>
+        <header>
+            <img src="Asset 9@4x.png" width="100" alt="Little Lemon logo">
+        </header>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <main>
+
+            <h1>Book a Table</h1>
+            <form>
+                <div>
+                    <label for=booking_date>Booking Date</label>
+                    <input type="date" id="booking_date" name="booking_date">
+                </div>
+                <div>
+                    <label for="booking_people">Number of people</label>
+                    <input type="range" id="booking_people" name="booking_people" min="1" max="10" value="4"
+                        oninput="this.nextElementSibling.value=this.value">
+                    <output>4</output>
+                </div>
+                <div>
+                    <label for="booking_location">Branch Location</label>
+                    <input id="booking_location" name="booking_location" list="Branch location">
+                    <datalist id="Branch location">
+                        <option value="Downtown"></option>
+                        <option value="Downtown"></option>
+                    </datalist>
+                </div>
+                <fieldset id="size">
+                    <legend>Table Size</legend>
+                    <input type="radio" id="size-2" value="2" name="size"> <label for="size-2">2-person table</label>
+                    <input type="radio" id="size-4" value="4" name="size"> <label for="size-4">4-person table</label>
+                    <input type="radio" id="size-6" value="6" name="size"> <label for="size-6">6-person table</label>
+                </fieldset>
+                <fieldset id="location">
+                    <legend>Location</legend>
+                    <input type="radio" id="location-indoors" value="indoors" name="location"> <label
+                        for="location-indoors">Indoors</label>
+                    <input type="radio" id="location-outdoors" value="outdoors" name="location"> <label
+                        for="location-outdoors">Outdoors</label>
+                </fieldset>
+                <button type="submit">Book Table</button>
+                <div>
+                    <br>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required minlength="2">
+
+                </div>
+
+                <div>
+                    <label for="password">password</label>
+                    <input type="password" id="password" required minlength="2">
+                    <br>
+                    <br>
+                    <button type="button">Log in</button>
+                </div>
+
+            </form>
+
+        </main>
+    </body>
+
+</html>
