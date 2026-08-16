@@ -23,9 +23,9 @@
         <img src="Asset 9@4x.png" width="100" alt="Little Lemon logo">
     </header>
 
-    <nav>
+    <nav aria-label="Main Navigation">
         <ul>
-            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="index.html" class="active" aria-current="page">Home</a></li>
             <li><a href="menu.html">Menu</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -33,108 +33,93 @@
     </nav>
 
     <main>
-        <h1>Book a Table</h1>
-        <form id="booking-form">
+        <h1 id="form-heading">Book a Table</h1>
+
+        <!-- Status message container for form submission feedback -->
+        <div id="form-status" role="status" aria-live="polite"></div>
+
+        <!-- Hidden iframe captures the Google Form response -->
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+            onload="if(submitted){ handleFormResponse(); }"></iframe>
+
+        <!-- Native HTML submission pointing to Google Forms -->
+        <form id="booking-form"
+            action="https://docs.google.com/forms/d/1JG6tEcdYPR2qWokPW4KFyw0IkGt7891aeMsl8CcObkg/formResponse"
+            method="POST" target="hidden_iframe" onsubmit="submitted = true;" aria-labelledby="form-heading">
+
             <div>
                 <label for="booking_date">Booking Date</label>
-                <input type="date" id="booking_date" name="booking_date" required>
+                <input type="date" id="booking_date" name="entry.1966042984" required aria-required="true">
             </div>
+
             <div>
                 <label for="booking_people">Number of people</label>
-                <input type="range" id="booking_people" name="booking_people" min="1" max="10" value="4"
-                    oninput="this.nextElementSibling.value=this.value">
-                <output>4</output>
+                <input type="range" id="booking_people" name="entry.103849891" min="1" max="10" value="4"
+                    aria-describedby="people-output"
+                    oninput="document.getElementById('people-output').value = this.value">
+                <output id="people-output" for="booking_people" aria-live="polite">4</output>
             </div>
+
             <div>
                 <label for="booking_location">Branch Location</label>
-                <input id="booking_location" name="booking_location" list="Branch location">
-                <datalist id="Branch location">
+                <input id="booking_location" name="entry.2014176179" list="branch-list">
+                <datalist id="branch-list">
                     <option value="Downtown"></option>
                 </datalist>
             </div>
+
             <fieldset id="size">
                 <legend>Table Size</legend>
-                <input type="radio" id="size-2" value="2" name="size"> <label for="size-2">2-person table</label>
-                <input type="radio" id="size-4" value="4" name="size"> <label for="size-4">4-person table</label>
-                <input type="radio" id="size-6" value="6" name="size"> <label for="size-6">6-person table</label>
+                <input type="radio" id="size-2" value="2" name="entry.22341789">
+                <label for="size-2">2-person table</label>
+
+                <input type="radio" id="size-4" value="4" name="entry.22341789">
+                <label for="size-4">4-person table</label>
+
+                <input type="radio" id="size-6" value="6" name="entry.22341789">
+                <label for="size-6">6-person table</label>
             </fieldset>
+
             <fieldset id="location">
                 <legend>Location</legend>
-                <input type="radio" id="location-indoors" value="indoors" name="location"> <label
-                    for="location-indoors">Indoors</label>
-                <input type="radio" id="location-outdoors" value="outdoors" name="location"> <label
-                    for="location-outdoors">Outdoors</label>
+                <input type="radio" id="location-indoors" value="indoors" name="entry.1001779990">
+                <label for="location-indoors">Indoors</label>
+
+                <input type="radio" id="location-outdoors" value="outdoors" name="entry.1001779990">
+                <label for="location-outdoors">Outdoors</label>
             </fieldset>
+
             <div>
-                <br>
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" autocomplete="username" required minlength="2">
+                <input type="text" id="username" name="entry.697096437" autocomplete="username" required
+                    aria-required="true" minlength="2">
             </div>
 
             <div>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" autocomplete="current-password" required
-                    minlength="2">
+                <input type="password" id="password" name="entry.344095484" autocomplete="current-password" required
+                    aria-required="true" minlength="2">
             </div>
+
             <br>
             <button type="submit">Book Table</button>
         </form>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        let submitted = false;
+
+        function handleFormResponse() {
+            const statusDiv = document.querySelector('#form-status');
             const form = document.querySelector('#booking-form');
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            statusDiv.textContent = 'Table successfully booked!';
+            statusDiv.style.color = 'green';
+            form.reset();
+            document.querySelector('#people-output').value = '4';
 
-                // Exact Google Form submission URL
-                const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1JG6tEcdYPR2qWokPW4KFyw0IkGt7891aeMsl8CcObkg/formResponse';
-
-                const formData = new FormData();
-
-                // 1. Booking Date
-                formData.append('entry.1966042984', document.querySelector('#booking_date').value);
-
-                // 2. Number Of Persons
-                formData.append('entry.103849891', document.querySelector('#booking_people').value);
-
-                // 3. Booking Location
-                formData.append('entry.2014176179', document.querySelector('#booking_location').value);
-
-                // 4. Table Size
-                const selectedSize = document.querySelector('input[name="size"]:checked');
-                if (selectedSize) {
-                    formData.append('entry.804073816', selectedSize.value);
-                }
-
-                // 5. Indoor/Outdoor Location
-                const selectedLocation = document.querySelector('input[name="location"]:checked');
-                if (selectedLocation) {
-                    formData.append('entry.1001779990', selectedLocation.value);
-                }
-
-                // 6. User Name
-                formData.append('entry.697096437', document.querySelector('#username').value);
-
-                // 7. Password
-                formData.append('entry.344095484', document.querySelector('#password').value);
-
-                try {
-                    await fetch(GOOGLE_FORM_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: formData
-                    });
-
-                    alert('Table successfully booked!');
-                    form.reset();
-                } catch (error) {
-                    console.error('Submission failed:', error);
-                    alert('There was an issue submitting your booking. Please try again.');
-                }
-            });
-        });
+            submitted = false;
+        }
     </script>
 </body>
 
