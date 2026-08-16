@@ -87,11 +87,12 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
+                // Exact Google Form submission URL
                 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1JG6tEcdYPR2qWokPW4KFyw0IkGt7891aeMsl8CcObkg/formResponse';
 
                 const formData = new FormData();
 
-                // 1. Booking Date (Single Value: YYYY-MM-DD)
+                // 1. Booking Date
                 formData.append('entry.1966042984', document.querySelector('#booking_date').value);
 
                 // 2. Number Of Persons
