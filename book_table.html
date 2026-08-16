@@ -68,12 +68,13 @@
             <div>
                 <br>
                 <label for="username">Username</label>
-                <input type="text" id="username" required minlength="2">
+                <input type="text" id="username" name="username" autocomplete="username" required minlength="2">
             </div>
 
             <div>
                 <label for="password">Password</label>
-                <input type="password" id="password" required minlength="2">
+                <input type="password" id="password" name="password" autocomplete="current-password" required
+                    minlength="2">
             </div>
             <br>
             <button type="submit">Book Table</button>
