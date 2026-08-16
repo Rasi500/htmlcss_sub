@@ -37,7 +37,7 @@
         <form id="booking-form">
             <div>
                 <label for="booking_date">Booking Date</label>
-                <input type="date" id="booking_date" name="booking_date">
+                <input type="date" id="booking_date" name="booking_date" required>
             </div>
             <div>
                 <label for="booking_people">Number of people</label>
@@ -87,38 +87,33 @@
             form.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                // Replace YOUR_GOOGLE_FORM_ID with the actual ID from your Google Form URL
                 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1JG6tEcdYPR2qWokPW4KFyw0IkGt7891aeMsl8CcObkg/formResponse';
 
                 const formData = new FormData();
 
-                // 1. Booking Date (Split into Year, Month, Day)
-                const dateValue = document.querySelector('#booking_date').value;
-                const [year, month, day] = dateValue ? dateValue.split('-') : ['', '', ''];
-                formData.append('entry.1966042984_year', year);
-                formData.append('entry.1966042984_month', month);
-                formData.append('entry.1966042984_day', day);
+                // 1. Booking Date (Single Value: YYYY-MM-DD)
+                formData.append('entry.1966042984', document.querySelector('#booking_date').value);
 
-                // 2. Number of People (Range Input)
-                formData.append('entry.2014176179', document.querySelector('#booking_people').value);
+                // 2. Number Of Persons
+                formData.append('entry.103849891', document.querySelector('#booking_people').value);
 
-                // 3. Branch Location (Datalist Input)
-                formData.append('entry.1001779990', document.querySelector('#booking_location').value);
+                // 3. Booking Location
+                formData.append('entry.2014176179', document.querySelector('#booking_location').value);
 
-                // 4. Table Size (Radio Buttons)
+                // 4. Table Size
                 const selectedSize = document.querySelector('input[name="size"]:checked');
                 if (selectedSize) {
                     formData.append('entry.804073816', selectedSize.value);
                 }
 
-                // 5. Indoor/Outdoor Location (Radio Buttons)
+                // 5. Indoor/Outdoor Location
                 const selectedLocation = document.querySelector('input[name="location"]:checked');
                 if (selectedLocation) {
-                    formData.append('entry.697096437', selectedLocation.value);
+                    formData.append('entry.1001779990', selectedLocation.value);
                 }
 
-                // 6. Username
-                formData.append('entry.103849891', document.querySelector('#username').value);
+                // 6. User Name
+                formData.append('entry.697096437', document.querySelector('#username').value);
 
                 // 7. Password
                 formData.append('entry.344095484', document.querySelector('#password').value);
